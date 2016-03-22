@@ -1192,7 +1192,7 @@ public:
 namespace VapourSynth {
 #include "vapoursynth/VapourSynth.h"
 
-	class CVapourSynthVobSubFilter : public CVobSubFilter {
+	class CVapourSynthVobSubFilter : public Plugin::CVobSubFilter {
 	public:
 		using CVobSubFilter::CVobSubFilter;
 
@@ -1201,7 +1201,7 @@ namespace VapourSynth {
 		}
 	};
 
-	class CVapourSynthTextSubFilter : public CTextSubFilter {
+	class CVapourSynthTextSubFilter : public Plugin::CTextSubFilter {
 	public:
 		using CTextSubFilter::CTextSubFilter;
 
@@ -1458,7 +1458,6 @@ namespace VapourSynth {
 			"swapuv:int:opt;"
 			, vsfCreate, (void *)"TextSub", plugin);
 	}
-}
 }
 UINT_PTR CALLBACK OpenHookProc(HWND hDlg, UINT uiMsg, WPARAM wParam, LPARAM lParam)
 {
