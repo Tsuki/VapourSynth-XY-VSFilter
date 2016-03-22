@@ -1188,11 +1188,11 @@ public:
         }
     }
 
-}
+
 namespace VapourSynth {
 #include "vapoursynth/VapourSynth.h"
 
-	class CVapourSynthVobSubFilter : public Plugin::CVobSubFilter {
+	class CVapourSynthVobSubFilter : public CVobSubFilter {
 	public:
 		using CVobSubFilter::CVobSubFilter;
 
@@ -1201,7 +1201,7 @@ namespace VapourSynth {
 		}
 	};
 
-	class CVapourSynthTextSubFilter : public Plugin::CTextSubFilter {
+	class CVapourSynthTextSubFilter : public CTextSubFilter {
 	public:
 		using CTextSubFilter::CTextSubFilter;
 
@@ -1314,7 +1314,6 @@ namespace VapourSynth {
 			}
 
 			REFERENCE_TIME timestamp;
-			//				TODO add vfr support
 			if (!d->vfr) {
 				timestamp = (REFERENCE_TIME)(10000000i64 * n / d->fps);
 			}
@@ -1378,7 +1377,6 @@ namespace VapourSynth {
 		if (err)
 			d.fps = -1;
 
-
 		d.vfr = vsapi->propGetData(in, "vfr", 0, &err);
 		if (err)
 			d.vfr = nullptr;
@@ -1387,7 +1385,7 @@ namespace VapourSynth {
 
 		d.swapuv = !!vsapi->propGetInt(in, "swapuv", 0, &err);
 
-		d.node = vsapi->propGetNode(in, "clip", 0, 0);
+		d.node = vsapi->propGetNode(in, "clip", 0, NULL);
 		d.vi = vsapi->getVideoInfo(d.node);
 
 		if (!d.vi->format || (d.vi->format->id != pfRGB24 && d.vi->format->id != pfYUV420P8)) {
@@ -1458,6 +1456,7 @@ namespace VapourSynth {
 			"swapuv:int:opt;"
 			, vsfCreate, (void *)"TextSub", plugin);
 	}
+}
 }
 UINT_PTR CALLBACK OpenHookProc(HWND hDlg, UINT uiMsg, WPARAM wParam, LPARAM lParam)
 {
